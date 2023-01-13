@@ -1,5 +1,6 @@
 package frc.robot;
 
+
 /**
  * Quick note: MC means motor controller
  */
@@ -9,7 +10,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+<<<<<<< HEAD
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
@@ -17,6 +20,9 @@ import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+=======
+
+>>>>>>> f8f407ee7632bc05316973c6e347f53f6c079a9f
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.MotorCommutation;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
@@ -72,8 +78,6 @@ public class Robot extends TimedRobot {
   public void robotInit() 
   {
 
-    PathPlannerTrajectory myFirstAuto = PathPlanner.loadPath("My First Auto", new PathConstraints(4, 3));
-    
     // Rest Motors to Factory Defults **This Can be done in Pheonix Tuner too** to create a standard for Motor Controller (MC) configs
     _leftLeader.configFactoryDefault();
     _leftFollow.configFactoryDefault();
