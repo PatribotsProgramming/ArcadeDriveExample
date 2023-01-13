@@ -10,10 +10,15 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.MotorCommutation;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 
 public class Robot extends TimedRobot {
@@ -38,7 +43,11 @@ public class Robot extends TimedRobot {
   WPI_TalonFX _talon7 = new WPI_TalonFX(7);  
   WPI_TalonFX _talon8 = new WPI_TalonFX(8);
 
-  
+  // Intake SparkMAX
+  CANSparkMax _trigger = new CANSparkMax(6, MotorType.kBrushless);
+
+  CANSparkMax _intake = new CANSparkMax(5, MotorType.kBrushless);
+  CANSparkMax _turret = new CANSparkMax(2, MotorType.kBrushless);
 
   // Climb motors
   //  WPI_TalonFX _talon9 = new WPI_TalonFX(9);  
@@ -49,6 +58,7 @@ public class Robot extends TimedRobot {
    * @param port is the index on the Driver Station that the controller is plugged into.
    */
   XboxController driver = new XboxController(0);
+  XboxController operator = new XboxController(1);
 
   /**
    * DifferentialDrive(leftMotor, rightMotor)
@@ -72,6 +82,10 @@ public class Robot extends TimedRobot {
 
     _talon7.configFactoryDefault();
     _talon8.configFactoryDefault();
+
+    _turret.restoreFactoryDefaults();
+    _intake.restoreFactoryDefaults();
+    _trigger.restoreFactoryDefaults();
 
     // _talon9.configFactoryDefault();
     // _talon10.configFactoryDefault();
@@ -128,6 +142,19 @@ public class Robot extends TimedRobot {
     
     // double liftUp = 0.4*-driver.getLeftTriggerAxis();
     // double liftDown = 0.4*driver.getRightTriggerAxis();
+    
+    _intake.set(-driver.getLeftTriggerAxis());
+    _trigger.set(driver.getRightTriggerAxis());
+
+    
+    System.out.println(_intake.getAbsoluteEncoder(Type.kDutyCycle).getPosition());
+    _turret.set(operator.getLeftX()*0.1);
+
+    // // Creates a safety for the shooter
+    // if (operator.getAButton()){
+    //   _
+    // }
+
     
     // if (liftUp != 0)
     // {
